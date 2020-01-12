@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import store from './store';
+
+import Posts from './components/Posts';
+import Post from './components/Post';
+
 import './App.css';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/' exact component={Posts} />
+          <Route path='/:id' exact component={Post} />
+          <Route path='/' render={() => <div>{'404'}</div>} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
